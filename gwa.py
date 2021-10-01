@@ -144,7 +144,7 @@ class GiWiFiWebAuth():
             "gw_id": self.client.gw_id,
             # "gw_address": "172.21.1.1",
             "gw_address": self.client.gw_address,
-            "gw_port": "8060",
+            "gw_port": self.client.gw_port,
             "url": "http://www.baidu.com",
             # "mac": "B0:AC:D2:0F:FB:C7",
             "mac": self.client.mac,
