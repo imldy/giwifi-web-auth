@@ -151,6 +151,7 @@ class GiWiFiWebAuth():
             # "gw_address": "172.21.1.1",
             "gw_address": self.client.gw_address,
             "gw_port": self.client.gw_port,
+            # 认证失败返回data中的url
             "url": "http://www.baidu.com",
             # "mac": "B0:AC:D2:0F:FB:C7",
             "mac": self.client.mac,
@@ -189,7 +190,8 @@ class GiWiFiWebAuth():
         }
         resp = self.session.post(url=login_url, data=data)
         resp_json: dict = resp.json()
-        if resp_json["status"] == 1:
+        # 认证成功返回网关上的url，失败返回data中的url
+        if resp_json["status"] == 1 and self.client.gw_address in resp.url:
             print("验证账户成功")
             self.client.login_link = resp_json["info"]
             return True
