@@ -62,7 +62,10 @@ class Client():
         self.suggest_phone = ""
         self.contact_phone = ""
         self.org_id = ""
+        # 访问get_auth_state返回的时间戳
         self.timestamp = ""
+        # 访问登录页面返回的时间戳
+        self.page_timestamp = ""
 
         self.login_link = ""
 
@@ -95,6 +98,9 @@ class GiWiFiWebAuth():
             html = etree.HTML(resp.text)
             sign = html.xpath('//input[@name="sign"][1]/@value')[0]
             self.client.sign = sign
+            # 获取访问页面的时间
+            page_time = html.xpath('//input[@name="page_time"][1]/@value')[0]
+            self.client.page_timestamp = page_time
             # 解析链接，获取参数信息
             query_arg = dict(urllib.parse.parse_qsl(url_obj.query))
             self.client.gw_address = query_arg["gw_address"]
@@ -150,14 +156,14 @@ class GiWiFiWebAuth():
             "mac": self.client.mac,
             "btype": self.client.btype,
             # "page_time": "1633048460",
-            "page_time": str(int(time.time())),
+            "page_time": self.client.page_timestamp,
             "lastaccessurl": "",
             "user_agent": "",
             "devicemode": "",
             # "client_ip": "172.22.64.196",
             "client_ip": self.client.ip,
             # "timestamp": "1633048460",
-            "timestamp": str(int(time.time())),
+            "timestamp": self.client.timestamp,
             # "access_type": "2",
             "access_type": self.client.access_type,
             # "station_sn": "c400adadb73c",
