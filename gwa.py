@@ -170,7 +170,7 @@ class GiWiFiWebAuth():
             "station_sn": self.client.station_sn,
             # "client_mac": "B0:AC:D2:0F:FB:C7",
             "client_mac": self.client.mac,
-            "online_time": "0",
+            "online_time": self.client.online_time,
             # "logout_reason": "0",
             "logout_reason": self.client.logout_reason,
             # "contact_phone": "400-038-5858",
