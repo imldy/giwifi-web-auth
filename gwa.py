@@ -104,7 +104,7 @@ class GiWiFiWebAuth():
             self.client.mac = query_arg["mac"]
             self.client.ap_mac = query_arg["apmac"]
             try:
-                open("gw_address", encoding="utf-8", mode="w").write(self.client.gw_id)
+                open("gw_address", encoding="utf-8", mode="w").write(self.client.gw_address)
                 print("保存网关地址成功")
             except Exception:
                 print("保存网关地址失败")
