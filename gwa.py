@@ -191,7 +191,7 @@ class GiWiFiWebAuth():
         resp = self.session.post(url=login_url, data=data)
         resp_json: dict = resp.json()
         # 认证成功返回网关上的url，失败返回data中的url
-        if resp_json["status"] == 1 and self.client.gw_address in resp.url:
+        if resp_json["status"] == 1 and self.client.gw_address in resp_json["info"]:
             print("验证账户成功")
             self.client.login_link = resp_json["info"]
             return True
