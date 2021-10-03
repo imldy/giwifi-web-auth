@@ -80,7 +80,7 @@ class GiWiFiWebAuth():
         self.account = account
 
     def get_auth_state(self) -> Response:
-        auth_state_url = "http://{}:8060/wifidog/get_auth_state".format(self.client.gw_address)
+        auth_state_url = "http://{}:{}/wifidog/get_auth_state".format(self.client.gw_address, self.client.gw_port)
         resp = self.session.get(auth_state_url)
         return resp
 
@@ -207,7 +207,7 @@ class GiWiFiWebAuth():
         print(resp.url)
 
     def out_login(self, reason='1'):
-        url = 'http:/{}:8060/wifidog/userlogout'.format(self.client.gw_address)
+        url = 'http:/{}:{}/wifidog/userlogout'.format(self.client.gw_address, self.client.gw_port)
         # get方式url后面的数据
         url_data = {
             "ip": self.client.ip,
