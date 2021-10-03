@@ -60,7 +60,6 @@ class Client():
         self.contact_phone = ""
         # 建议反馈电话
         self.suggest_phone = ""
-        self.contact_phone = ""
         self.org_id = ""
         # 访问get_auth_state返回的时间戳
         self.timestamp = ""
