@@ -2,7 +2,7 @@ import json
 import time
 
 import requests
-from lxml import etree
+import re
 from requests import Response
 from urllib.parse import urlparse
 import urllib
@@ -94,11 +94,10 @@ class GiWiFiWebAuth():
         url_obj = urllib.parse.urlparse(resp.url)
         if "login.gwifi.com.cn" in url_obj.netloc:
             print("未登录，开始获取sign、网关地址等信息")
-            html = etree.HTML(resp.text)
-            sign = html.xpath('//input[@name="sign"][1]/@value')[0]
+            sign = re.findall('class="sign" name="sign" value="(.*?)"/>', resp.text)[0]
             self.client.sign = sign
             # 获取访问页面的时间
-            page_time = html.xpath('//input[@name="page_time"][1]/@value')[0]
+            page_time = re.findall('id="page_time" name="page_time" value="(.*?)" />', resp.text)[0]
             self.client.page_timestamp = page_time
             # 解析链接，获取参数信息
             query_arg = dict(urllib.parse.parse_qsl(url_obj.query))
