@@ -1,3 +1,4 @@
+import builtins
 import json
 import time
 
@@ -6,6 +7,18 @@ import re
 from requests import Response
 from urllib.parse import urlparse
 import urllib
+
+
+class Util():
+    @classmethod
+    def get_datetime(cls):
+        local_time = time.localtime()
+        dt = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
+        return dt
+
+
+def print(str: str):
+    builtins.print("{} - {}".format(Util.get_datetime(), str))
 
 
 class Code():
