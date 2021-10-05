@@ -251,7 +251,7 @@ class GiWiFiWebAuth():
 def start(gwa: GiWiFiWebAuth):
     # 1、通过固定域名访问GiWiFi固定网站，判断是否已经登录，若未登录，则GiWiFi会跳转，可获取相关信息
     if gwa.get_web_sign() == Code.is_login:
-        print("已登录")
+        return True
     else:
         print("未登录，开始下一步")
         # 2、获取网关WiFiDog与本设备的链接信息，并设置为对象属性
@@ -259,7 +259,9 @@ def start(gwa: GiWiFiWebAuth):
         # 3、根据
         gwa.auth_account()
         if gwa.requests_login_link():
-            print("认证成功")
+            return True
+        else:
+            return False
 
 
 if __name__ == '__main__':
@@ -268,4 +270,18 @@ if __name__ == '__main__':
     account = Account(conf[0].strip(), conf[1].strip())
     client = Client()
     gwa = GiWiFiWebAuth(account=account, client=client)
-    start(gwa)
+    cycle_flag = True
+    max_cycle_num = 10
+    now_cycle_num = max_cycle_num
+    while cycle_flag and now_cycle_num >= 0:
+        if now_cycle_num < max_cycle_num:
+            print("正在尝试第{}次认证".format(max_cycle_num - now_cycle_num))
+        try:
+            now_cycle_num -= 1
+            result = start(gwa)
+            if result:
+                print("当前认证状态为【已认证】")
+                cycle_flag = False
+        except Exception as e:
+            print("出现异常：{}".format(e))
+    print("认证结束")
