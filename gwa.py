@@ -217,6 +217,7 @@ class GiWiFiWebAuth():
         '''
         resp = self.session.get(self.client.login_link)
         print(resp.url)
+        return True
 
     def out_login(self, reason='1'):
         url = 'http:/{}:{}/wifidog/userlogout'.format(self.client.gw_address, self.client.gw_port)
@@ -262,4 +263,5 @@ if __name__ == '__main__':
         gwa.set_client()
         # 3、根据
         gwa.auth_account()
-        gwa.requests_login_link()
+        if gwa.requests_login_link():
+            print("认证成功")
