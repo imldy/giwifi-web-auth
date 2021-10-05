@@ -127,7 +127,6 @@ class GiWiFiWebAuth():
                 print("保存网关地址失败")
             return Code.not_login
         else:
-            print("已经登录了")
             return Code.is_login
 
     def set_client(self):
