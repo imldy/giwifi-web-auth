@@ -248,12 +248,7 @@ class GiWiFiWebAuth():
         return ret
 
 
-if __name__ == '__main__':
-    conf_file = open("conf.txt", encoding="utf-8")
-    conf = conf_file.read().strip().split("\n")
-    account = Account(conf[0].strip(), conf[1].strip())
-    client = Client()
-    gwa = GiWiFiWebAuth(account=account, client=client)
+def start(gwa: GiWiFiWebAuth):
     # 1、通过固定域名访问GiWiFi固定网站，判断是否已经登录，若未登录，则GiWiFi会跳转，可获取相关信息
     if gwa.get_web_sign() == Code.is_login:
         print("已登录")
@@ -265,3 +260,12 @@ if __name__ == '__main__':
         gwa.auth_account()
         if gwa.requests_login_link():
             print("认证成功")
+
+
+if __name__ == '__main__':
+    conf_file = open("conf.txt", encoding="utf-8")
+    conf = conf_file.read().strip().split("\n")
+    account = Account(conf[0].strip(), conf[1].strip())
+    client = Client()
+    gwa = GiWiFiWebAuth(account=account, client=client)
+    start(gwa)
