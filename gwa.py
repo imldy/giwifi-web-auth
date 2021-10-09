@@ -18,7 +18,10 @@ class Util():
 
 
 def print(str: str):
-    builtins.print("{} - {}".format(Util.get_datetime(), str))
+    log_str = "{} - {}".format(Util.get_datetime(), str)
+    builtins.print(log_str)
+    log_file.write(log_str + "\n")
+    log_file.flush()
 
 
 class Code():
@@ -281,6 +284,7 @@ def cycle():
 
 
 if __name__ == '__main__':
+    log_file = open("{}gwa.log".format(sys.path[0] + "/"), encoding="utf-8", mode="a")
     conf_file = open("{}conf.txt".format(sys.path[0] + "/"), encoding="utf-8")
     conf = conf_file.read().strip().split("\n")
     account = Account(conf[0].strip(), conf[1].strip())
