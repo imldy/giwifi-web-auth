@@ -102,6 +102,21 @@ class GiWiFiWebAuth():
         resp = self.session.get(login_web_url)
         return resp
 
+    def is_login_of_wifidog(self):
+        # 先获取wifidog地址
+        if self.client.gw_address == None or self.client.gw_address == "":
+            try:
+                self.client.gw_address = open("gw_address", encoding="utf-8").read().strip()
+            except Exception as e:
+                print("读取本地保存的网关地址发生错误：{}".format(e))
+                return False
+            self.client.gw_port = "8060"
+        auth_state: dict = self.toJson(self.get_auth_state())
+        if auth_state["data"]["auth_state"] == 2:
+            return True
+        else:
+            return False
+
     def get_web_sign(self):
         resp: Response = self.get_login_web()
         url_obj = urllib.parse.urlparse(resp.url)
@@ -241,7 +256,7 @@ def start(gwa: GiWiFiWebAuth):
         gwa.set_client()
         # 3、根据
         gwa.auth_account()
-        if gwa.requests_login_link():
+        if gwa.requests_login_link() and gwa.is_login_of_wifidog():
             return True
         else:
             return False
