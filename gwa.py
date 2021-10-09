@@ -286,4 +286,10 @@ if __name__ == '__main__':
     account = Account(conf[0].strip(), conf[1].strip())
     client = Client()
     gwa = GiWiFiWebAuth(account=account, client=client)
-    cycle()
+    args = sys.argv
+    while True:
+        cycle()
+        if "-d" in args:
+            time.sleep(int(args[2]))
+        else:
+            exit()
