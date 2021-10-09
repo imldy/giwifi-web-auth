@@ -1,7 +1,7 @@
 import builtins
 import json
 import time
-
+import sys
 import requests
 import re
 from requests import Response
@@ -262,12 +262,7 @@ def start(gwa: GiWiFiWebAuth):
             return False
 
 
-if __name__ == '__main__':
-    conf_file = open("conf.txt", encoding="utf-8")
-    conf = conf_file.read().strip().split("\n")
-    account = Account(conf[0].strip(), conf[1].strip())
-    client = Client()
-    gwa = GiWiFiWebAuth(account=account, client=client)
+def cycle():
     cycle_flag = True
     max_cycle_num = 10
     now_cycle_num = max_cycle_num
@@ -283,3 +278,12 @@ if __name__ == '__main__':
         except Exception as e:
             print("出现异常：{}".format(e))
     print("认证结束")
+
+
+if __name__ == '__main__':
+    conf_file = open("conf.txt", encoding="utf-8")
+    conf = conf_file.read().strip().split("\n")
+    account = Account(conf[0].strip(), conf[1].strip())
+    client = Client()
+    gwa = GiWiFiWebAuth(account=account, client=client)
+    cycle()
