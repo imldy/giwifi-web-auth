@@ -281,7 +281,7 @@ def cycle():
 
 
 if __name__ == '__main__':
-    conf_file = open("conf.txt", encoding="utf-8")
+    conf_file = open("{}conf.txt".format(sys.path[0] + "/"), encoding="utf-8")
     conf = conf_file.read().strip().split("\n")
     account = Account(conf[0].strip(), conf[1].strip())
     client = Client()
