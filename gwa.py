@@ -251,7 +251,7 @@ class GiWiFiWebAuth():
 
 def start(gwa: GiWiFiWebAuth):
     # 1、通过固定域名访问GiWiFi固定网站，判断是否已经登录，若未登录，则GiWiFi会跳转，可获取相关信息
-    if gwa.get_web_sign() == Code.is_login:
+    if gwa.get_web_sign() == Code.is_login and gwa.is_login_of_wifidog():
         return True
     else:
         print("未登录，开始下一步")
