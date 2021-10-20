@@ -4,13 +4,13 @@
 
 ## 安装Python与pip
 
-### CentOS
+### RedHat/CentOS
 
 ```shell
 yum install python3 python3-pip
 ```
 
-### Debian/Ubuntu
+### Debian/Ubuntu/Deepin
 
 ```shell
 apt install python3 python3-pip
